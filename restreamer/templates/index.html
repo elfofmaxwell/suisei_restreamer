@@ -1,0 +1,34 @@
+<!doctype html>
+<head>
+    <title>Rebroadcast</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+
+<body>
+    <div>
+        {% if g.user %}
+            {% if not stream_lock %}
+                <form method="post">
+                    <div>
+                        <label for="sourceUrl">Source: </label>
+                        <input id="sourceUrl" name="sourceUrl" required>
+                    </div>
+                    <div>
+                        <label for="streamServer">Stream server: </label>
+                        <input id="streamServer" name="streamServer" value="{{ history_server }}" required>
+                    </div>
+                    <div>
+                        <label for="streamKey">Stream key: </label>
+                        <input id="streamKey" name="streamKey" required>
+                    </div>
+                    <div>
+                        <input type="submit" value="Stream">
+                    </div>
+                </form>
+            {% else %}
+                <a href="{{ url_for('restreamer.kill')}}">Stop</a>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
